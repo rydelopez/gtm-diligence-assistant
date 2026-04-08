@@ -236,12 +236,6 @@ Generic numeric validation lives in [`gtm_diligence_assistant/numeric_validation
 
 Prompt context remains intentionally capped. The workflow keeps a larger deduped evidence pool across passes, but the model only sees a ranked evidence pack of the best chunks for the current step. That prompt pack is primary-file-biased and keeps operand-bearing chunks plus a small amount of nearby statement or note context instead of every retrieval event. The retrieval loop now uses page-window vector retrieval first, exact page scanning second, and whole-file fallback last so the workflow is less likely to miss debt or lease notes that were present but phrased differently from the question.
 
-## Example Output
-
-Sample request: [`examples/qid-6-request.json`](./examples/qid-6-request.json)
-
-Sample response: [`examples/qid-6-response.json`](./examples/qid-6-response.json)
-
 ## Secondary CLI Utilities
 
 The web UI is the primary demo path, but the CLI utilities remain available for debugging, batch runs, and evals.
