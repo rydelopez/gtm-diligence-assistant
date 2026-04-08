@@ -1,0 +1,34 @@
+{
+  "response": {
+    "final_answer": "-1830000000.00",
+    "answer_kind": "number",
+    "explanation": "Net debt is total debt plus lease liabilities minus cash and cash equivalents, using the cited FY 2024 10-K pages.",
+    "citations": [
+      {
+        "citation_id": "local_pdf:adbe-10k-fy24-final:37",
+        "source_type": "local_pdf",
+        "source_label": "adbe-10k-fy24-final.pdf",
+        "source_path": "/data/Adobe/FY 2024/adbe-10k-fy24-final.pdf",
+        "page_number": 37,
+        "source_url": null
+      },
+      {
+        "citation_id": "local_pdf:adbe-10k-fy24-final:73",
+        "source_type": "local_pdf",
+        "source_label": "adbe-10k-fy24-final.pdf",
+        "source_path": "/data/Adobe/FY 2024/adbe-10k-fy24-final.pdf",
+        "page_number": 73,
+        "source_url": null
+      }
+    ],
+    "confidence": 0.88,
+    "needs_human_review": false,
+    "errors": []
+  },
+  "telemetry": {
+    "retrieval_stop_reason": "coverage_complete",
+    "retrieval_pass_count": 2,
+    "vector_index_used": true,
+    "vector_hits_count": 5
+  }
+}

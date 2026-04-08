@@ -4,6 +4,16 @@ This repo contains a LangChain + LangGraph take-home project for an internal GTM
 
 An operator asks a finance diligence question against a local virtual dataroom, the workflow searches the company FY folder with a strong bias toward one primary filing, retrieves page-window evidence from a precomputed vector index, falls back to exact scans and bounded whole-file reads only when semantic retrieval still leaves gaps, has the model identify operands and propose a formula, validates the arithmetic deterministically, verifies the answer, and escalates to human review instead of bluffing when evidence is incomplete.
 
+## Submission Summary
+
+- Problem solved: this helps an internal GTM, deal-desk, or solutions engineer answer diligence-style finance questions over a local dataroom of filings without manually hunting through long PDFs.
+- User: the primary user is an internal operator who needs a fast answer, clear citations, and a safe fallback when the evidence is incomplete.
+- Why this workflow: I chose an explicit LangGraph retrieval and verification flow instead of a free-form agent loop so retrieval, retries, validation, and escalation stay traceable and easier to evaluate.
+- Key tradeoffs: I biased toward grounded accuracy over minimum latency, bounded retrieval depth over open-ended searching, and deterministic validation over fully flexible model-only reasoning.
+- Production impact: I would measure exact or near-correct answer rate, citation coverage, expected-file-behavior score, human-review rate, retrieval iterations, and end-to-end latency.
+
+Tracked example input and output files live in [`examples/sample_request.json`](./examples/sample_request.json) and [`examples/sample_response.json`](./examples/sample_response.json).
+
 ## Problem and User
 
 The user is an internal GTM, deal-desk, or solutions engineer supporting diligence-heavy workflows. They need:
@@ -328,8 +338,7 @@ If this shipped in production, I would monitor:
 
 - exact or near-correct answer rate
 - citation coverage rate
-- opened-expected-file rate
-- primary-file-alignment rate
+- expected-file-behavior score
 - `needs_human_review` rate
 - retrieval iteration count
 - p95 end-to-end latency
@@ -339,8 +348,7 @@ Regression gates after changes:
 
 - no drop in exact or near correctness
 - no drop in citation coverage
-- no drop in expected-file open rate
-- no drop in primary-file alignment
+- no drop in expected-file-behavior score
 - no increase in human-review rate
 - stable or lower average retrieval iterations
 - stable p95 latency
