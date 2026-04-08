@@ -1,0 +1,34 @@
+[project]
+name = "gtm-diligence-assistant"
+version = "0.1.0"
+description = "GTM diligence assistant built with LangChain + LangGraph"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115.0",
+    "langchain>=0.3.27",
+    "langchain-anthropic>=0.3.20",
+    "langchain-community>=0.3.29",
+    "langchain-core>=0.3.76",
+    "langchain-experimental>=0.3.4",
+    "langchain-google-genai>=2.1.12",
+    "langchain-openai>=0.3.33",
+    "langchain-tavily>=0.2.11",
+    "langgraph>=0.6.7",
+    "langgraph-checkpoint>=2.1.1",
+    "langgraph-prebuilt>=0.6.4",
+    "langsmith>=0.4.31",
+    "matplotlib>=3.10.6",
+    "openpyxl>=3.1.5",
+    "pandas>=2.3.2",
+    "pymupdf>=1.26.4",
+    "uvicorn>=0.32.0",
+]
+
+[project.scripts]
+gtm-diligence-assistant = "main:main"
+gtm-diligence-batch = "gtm_diligence_assistant.batch:main"
+gtm-diligence-docker-runtime = "gtm_diligence_assistant.docker_runtime:main"
+gtm-diligence-evals = "gtm_diligence_assistant.evals:main"
+gtm-diligence-build-index = "gtm_diligence_assistant.build_index:main"
+gtm-diligence-web = "gtm_diligence_assistant.web_app:main"

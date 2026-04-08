@@ -1,0 +1,45 @@
+services:
+  agent:
+    image: gtm-diligence-assistant:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      GOOGLE_API_KEY: ${GOOGLE_API_KEY:-}
+      LANGSMITH_TRACING: ${LANGSMITH_TRACING:-}
+      LANGSMITH_API_KEY: ${LANGSMITH_API_KEY:-}
+      LANGSMITH_PROJECT: ${LANGSMITH_PROJECT:-}
+      LANGSMITH_ENDPOINT: ${LANGSMITH_ENDPOINT:-}
+      # Optional model config
+      MODEL: ${MODEL:-openai}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-5}
+      ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-claude-sonnet-4-5-20250929}
+      GOOGLE_MODEL: ${GOOGLE_MODEL:-gemini-2.5-pro}
+      EMBEDDING_PROVIDER: ${EMBEDDING_PROVIDER:-openai}
+      OPENAI_EMBEDDING_MODEL: ${OPENAI_EMBEDDING_MODEL:-text-embedding-3-large}
+      GOOGLE_EMBEDDING_MODEL: ${GOOGLE_EMBEDDING_MODEL:-models/gemini-embedding-001}
+      MODEL_TEMPERATURE: ${MODEL_TEMPERATURE:-0}
+      DATASET_JSONL: ${DATASET_JSONL:-/inputs/diligence_eval_examples.jsonl}
+      DATAROOM_ROOT: ${DATAROOM_ROOT:-/data}
+      VECTOR_INDEX_CACHE_DIR: ${VECTOR_INDEX_CACHE_DIR:-/outputs/vector_indexes}
+      OUT_JSONL: ${OUT_JSONL:-/outputs/gtm_diligence_results.jsonl}
+      OUT_SUMMARY_JSON: ${OUT_SUMMARY_JSON:-/outputs/gtm_diligence_summary.json}
+      UI_DIST_DIR: ${UI_DIST_DIR:-/opt/gtm-ui-dist}
+      WEB_HOST: ${WEB_HOST:-0.0.0.0}
+      WEB_PORT: ${WEB_PORT:-8000}
+    ports:
+      - "8000:8000"
+    volumes:
+      # Hot-reload code during dev
+      - ./:/app:rw
+      # PDFs only (your virtual dataroom)
+      - ./dataroom:/data:ro
+      # Separate inputs (curated JSONL fixture lives here)
+      - ./inputs:/inputs:ro
+      # Separate outputs (collect results here)
+      - ./outputs:/outputs:rw
+    command: ["python", "-m", "gtm_diligence_assistant.web_app"]
+    tty: true
+    stdin_open: true
